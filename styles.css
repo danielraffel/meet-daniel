@@ -155,7 +155,7 @@ body {
 }
 
 .body {
-    width: 30px;
+    width: 36px;
     height: 35px;
     background: #4A90E2;
     margin: 2px auto;
@@ -168,9 +168,10 @@ body {
 
 .shirt {
     color: white;
-    font-size: 8px;
+    font-size: 7px;
     font-weight: bold;
     text-align: center;
+    padding: 0 2px;
 }
 
 .legs {
