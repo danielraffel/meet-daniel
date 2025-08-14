@@ -1,0 +1,744 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Intro Screen */
+.intro-text {
+    text-align: center;
+    padding: 100px 20px;
+    color: white;
+    animation: fadeIn 1s ease-out;
+}
+
+.intro-text h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 1.3em;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.start-btn {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Animation Scene */
+.scene {
+    display: none;
+    position: relative;
+    height: 500px;
+    background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #90EE90 60%);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 40px 0;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.scene.active {
+    display: block;
+    animation: slideDown 0.5s ease-out;
+}
+
+/* Sky Narrative */
+.sky-narrative {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    z-index: 5;
+}
+
+.narrative-text {
+    color: #2c3e50;
+    font-size: 1.3em;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.narrative-text.visible {
+    opacity: 1;
+}
+
+/* Street */
+.street {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+}
+
+.sidewalk {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: #999;
+    border-top: 3px solid #666;
+}
+
+.road {
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+    height: 120px;
+    background: #333;
+}
+
+.road-line {
+    position: absolute;
+    top: 55px;
+    width: 80px;
+    height: 10px;
+    background: #FFD700;
+}
+
+.road-line:nth-child(1) { left: 100px; }
+.road-line:nth-child(2) { left: 400px; }
+.road-line:nth-child(3) { left: 700px; }
+
+/* Characters */
+.person {
+    position: relative;
+    width: 40px;
+    height: 80px;
+}
+
+.head {
+    width: 25px;
+    height: 25px;
+    background: #FFD4B2;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 2px solid #333;
+}
+
+.body {
+    width: 30px;
+    height: 35px;
+    background: #4A90E2;
+    margin: 2px auto;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shirt {
+    color: white;
+    font-size: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.legs {
+    position: relative;
+    width: 30px;
+    margin: 0 auto;
+    height: 20px;
+}
+
+.leg {
+    position: absolute;
+    width: 12px;
+    height: 20px;
+    background: #333;
+    border-radius: 0 0 3px 3px;
+}
+
+.leg.left { left: 2px; }
+.leg.right { right: 2px; }
+
+.arms {
+    position: absolute;
+    top: 30px;
+    width: 50px;
+    height: 25px;
+    left: -10px;
+}
+
+.arm {
+    position: absolute;
+    width: 8px;
+    height: 25px;
+    background: #FFD4B2;
+    border-radius: 4px;
+}
+
+.arm.left { left: 0; }
+.arm.right { right: 0; }
+
+/* Michael Character */
+.michael {
+    position: absolute;
+    bottom: 80px;
+    right: 200px;
+    z-index: 10;
+}
+
+.michael .body {
+    background: #000;
+}
+
+.michael.walking {
+    animation: walk 2s linear infinite;
+}
+
+@keyframes walk {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-2px) translateY(-2px); }
+    50% { transform: translateX(0) translateY(0); }
+    75% { transform: translateX(2px) translateY(-2px); }
+}
+
+/* Daniel Character */
+.daniel {
+    position: absolute;
+    bottom: 80px;
+    left: -100px;
+    z-index: 12;
+    opacity: 0;
+}
+
+.daniel .body {
+    background: #E91E63;
+}
+
+.daniel.visible {
+    opacity: 1;
+}
+
+.daniel.walking {
+    animation: walkToMichael 3s ease-out forwards;
+}
+
+@keyframes walkToMichael {
+    to {
+        left: calc(100% - 350px);
+    }
+}
+
+.daniel.bowing {
+    animation: bow 2s ease-in-out;
+}
+
+@keyframes bow {
+    0%, 100% { transform: rotate(0); }
+    50% { transform: rotate(30deg); transform-origin: bottom center; }
+}
+
+/* Tesla Model 3 */
+.tesla {
+    position: absolute;
+    bottom: 160px;
+    left: -300px;
+    width: 150px;
+    height: 60px;
+    z-index: 11;
+}
+
+.car-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 30px 10px 5px 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.windshield {
+    position: absolute;
+    top: 5px;
+    left: 40px;
+    width: 50px;
+    height: 25px;
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+    border-radius: 10px 20px 0 0;
+}
+
+.roof {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: 70px;
+    height: 30px;
+    background: #000;
+    border-radius: 20px 20px 0 0;
+}
+
+.headlight {
+    position: absolute;
+    right: 5px;
+    top: 35px;
+    width: 15px;
+    height: 10px;
+    background: #FFF;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #FFF;
+}
+
+
+.wheel {
+    position: absolute;
+    bottom: -10px;
+    width: 25px;
+    height: 25px;
+    background: #333;
+    border-radius: 50%;
+    border: 3px solid #666;
+}
+
+.wheel.front { right: 15px; }
+.wheel.rear { left: 15px; }
+
+.tesla.driving {
+    animation: driveIn 3s ease-out forwards;
+}
+
+@keyframes driveIn {
+    to {
+        left: 50px;
+    }
+}
+
+.wheel.spinning {
+    animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Portal Effect */
+.portal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    display: none;
+    z-index: 25;
+}
+
+.portal.active {
+    display: block;
+}
+
+.portal-ring {
+    position: absolute;
+    border: 3px solid;
+    border-radius: 50%;
+    animation: portalSpin 3s linear infinite;
+}
+
+.portal-ring:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    border-color: #FF00FF;
+    animation-duration: 3s;
+}
+
+.portal-ring:nth-child(2) {
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    border-color: #00FFFF;
+    animation-duration: 2.5s;
+    animation-direction: reverse;
+}
+
+.portal-ring:nth-child(3) {
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    border-color: #FFFF00;
+    animation-duration: 2s;
+}
+
+@keyframes portalSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Guru Character */
+.guru {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    z-index: 30;
+    opacity: 0;
+}
+
+.guru.active {
+    display: block;
+    animation: guruAppear 1s ease-out forwards;
+}
+
+@keyframes guruAppear {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.guru-body {
+    position: relative;
+    width: 80px;
+    height: 120px;
+}
+
+.guru-head {
+    width: 35px;
+    height: 35px;
+    background: #8B4513;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 2px solid #333;
+}
+
+.guru-beard {
+    width: 30px;
+    height: 20px;
+    background: white;
+    margin: -10px auto 0;
+    border-radius: 0 0 15px 15px;
+}
+
+.guru-robe {
+    width: 60px;
+    height: 50px;
+    background: #FF9933;
+    margin: 5px auto;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.guru-legs {
+    width: 50px;
+    height: 15px;
+    background: #8B4513;
+    margin: 0 auto;
+    border-radius: 0 0 10px 10px;
+}
+
+.guru-message {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    width: 300px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.guru-message.visible {
+    opacity: 1;
+}
+
+.guru-message p {
+    margin: 0;
+    font-style: italic;
+    color: #8B4513;
+    font-weight: 500;
+}
+
+/* Labels */
+.label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Speech/Thought Bubbles */
+.speech-bubble, .thought-bubble {
+    position: absolute;
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: none;
+    max-width: 250px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    z-index: 20;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+.thought-bubble {
+    border-radius: 30px;
+}
+
+.thought-bubble:after {
+    content: '...';
+    position: absolute;
+    bottom: -20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+}
+
+#danielSpeech {
+    bottom: 180px;
+    left: 100px;
+}
+
+#michaelThought {
+    bottom: 180px;
+    right: 150px;
+}
+
+
+/* About Section */
+.about-section {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 60px 40px;
+    margin: 40px 0;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.about-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.about-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #667eea;
+}
+
+.bio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.bio-card {
+    background: linear-gradient(135deg, #667eea10, #764ba210);
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 4px solid #667eea;
+}
+
+.bio-card h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.3em;
+}
+
+.bio-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.why-cursor {
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+.why-cursor h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.why-cursor p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.cta {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 15px;
+    color: white;
+}
+
+.cta h3 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.cta p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.contact {
+    margin: 30px 0;
+}
+
+.email-btn {
+    display: inline-block;
+    background: white;
+    color: #667eea;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.email-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1em;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.final-thought {
+    margin-top: 30px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInText {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .intro-text h1 {
+        font-size: 2em;
+    }
+    
+    .scene {
+        height: 400px;
+    }
+    
+    .bio-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-section {
+        padding: 40px 20px;
+    }
+}
