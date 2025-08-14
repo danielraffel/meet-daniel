@@ -578,12 +578,27 @@ body {
 }
 
 .thought-bubble:after {
-    content: '...';
+    content: '';
     position: absolute;
-    bottom: -20px;
+    bottom: -8px;
     right: 30px;
-    font-size: 30px;
-    color: white;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.thought-bubble:before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    right: 25px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 #danielSpeech {
@@ -829,9 +844,17 @@ body {
     }
     
     .thought-bubble:after {
-        font-size: 20px;
-        bottom: -15px;
+        width: 12px;
+        height: 12px;
+        bottom: -6px;
         right: 20px;
+    }
+    
+    .thought-bubble:before {
+        width: 8px;
+        height: 8px;
+        bottom: -12px;
+        right: 18px;
     }
     
     /* Adjust narrative text for mobile */
