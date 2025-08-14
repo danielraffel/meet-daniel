@@ -1,12 +1,12 @@
 // Story segments
 const storySegments = [
-    "Picture this: It's a perfectly normal San Francisco afternoon...",
-    "I just finished teaching a dozen artists how to use Cursor at a venture-funded studio in the Mission.",
+    "Picture this: It's a beautiful San Francisco afternoon...",
+    "I just finished teaching a dozen entrepreneurs how to use Cursor at a venture-funded residency in the Mission.",
     "My mind was buzzing with the energy of watching people discover they could suddenly build things they never imagined possible.",
-    "I hadn't eaten all day. I was exhausted. But I was exhilarated.",
+    "I needed to eat, had consumed too much coffee, and was exhilarated.",
     "Then, as I'm driving home...",
-    "I see him. Michael. THE Michael. CEO of Cursor. Just walking down the street.",
-    "It felt like I'd manifested him. Or maybe I'm living in his AI simulation?",
+    "I see the CEO of Cursor. Just walking down the street.",
+    "It felt like I'd manifested him. 😂 Or maybe I'm living in his AI simulation?",
     "Either way, I knew I had to reach out somehow.",
     "So here we are..."
 ];
@@ -16,7 +16,7 @@ const dialogues = [
     { type: 'daniel', text: "Michael! Hi! I'm Daniel!" },
     { type: 'daniel', text: "I literally JUST taught a Cursor course!" },
     { type: 'daniel', text: "I use Cursor every single day!" },
-    { type: 'daniel', text: "I've messaged you feedback about email comms!" },
+    { type: 'daniel', text: "I've messaged you feedback about Cursor!" },
     { type: 'michael', text: "This is... unexpected" },
     { type: 'daniel', text: "I know this is weird but..." },
     { type: 'daniel', text: "Cursor is changing everything!" },
