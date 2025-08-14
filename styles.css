@@ -517,6 +517,38 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+/* Skip button */
+.skip-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.skip-container.active {
+    display: block;
+}
+
+.skip-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 10px 25px;
+    font-size: 1em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+}
+
+.skip-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
 /* Speech/Thought Bubbles */
 .speech-bubble, .thought-bubble {
     position: absolute;
@@ -731,6 +763,24 @@ body {
         font-size: 2em;
     }
     
+    .intro-text {
+        padding: 60px 20px;
+    }
+    
+    .subtitle {
+        font-size: 1.1em;
+        margin-bottom: 30px;
+    }
+    
+    .start-btn {
+        padding: 12px 20px;
+        font-size: 0.95em;
+        width: auto;
+        max-width: 280px;
+        white-space: normal;
+        line-height: 1.3;
+    }
+    
     .scene {
         height: 400px;
     }
@@ -741,5 +791,76 @@ body {
     
     .about-section {
         padding: 40px 20px;
+    }
+    
+    /* Position speech bubbles above characters on mobile */
+    #danielSpeech {
+        bottom: 180px !important;
+        top: auto !important;
+        left: auto;
+        right: auto;
+        max-width: 120px;
+        font-size: 12px;
+    }
+    
+    #michaelThought {
+        bottom: 180px !important;
+        top: auto !important;
+        right: auto;
+        left: auto;
+        max-width: 120px;
+        font-size: 12px;
+    }
+    
+    /* Adjust bubble font size and padding for mobile */
+    .speech-bubble, .thought-bubble {
+        font-size: 12px;
+        padding: 8px;
+        min-width: 80px;
+    }
+    
+    /* Make bubble arrows smaller on mobile */
+    .speech-bubble:after {
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid white;
+        bottom: -8px;
+        left: 20px;
+    }
+    
+    .thought-bubble:after {
+        font-size: 20px;
+        bottom: -15px;
+        right: 20px;
+    }
+    
+    /* Adjust narrative text for mobile */
+    .narrative-text {
+        font-size: 1.1em;
+        padding: 8px 15px;
+    }
+    
+    /* Prevent label overlap on mobile */
+    .label {
+        font-size: 10px;
+        padding: 2px 8px;
+        bottom: -20px;
+    }
+    
+    /* Hide labels when characters are close */
+    .daniel.walking ~ .michael .label,
+    .daniel.walking .label {
+        opacity: 0.7;
+    }
+    
+    /* Stack labels vertically when close */
+    .daniel .label {
+        bottom: -35px;
+        z-index: 15;
+    }
+    
+    .michael .label {
+        bottom: -20px;
+        z-index: 14;
     }
 }

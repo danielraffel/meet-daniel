@@ -44,6 +44,8 @@ const michaelThought = document.getElementById('michaelThought');
 const portal = document.getElementById('portal');
 const guru = document.getElementById('guru');
 const guruMessage = document.getElementById('guruMessage');
+const skipContainer = document.getElementById('skipContainer');
+const skipBtn = document.getElementById('skipStory');
 
 // YouTube Player API
 function onYouTubeIframeAPIReady() {
@@ -70,6 +72,7 @@ function onPlayerReady(event) {
 function startStory() {
     intro.style.display = 'none';
     scene.classList.add('active');
+    skipContainer.classList.add('active');
     
     // Start Michael walking
     michael.classList.add('walking');
@@ -78,6 +81,30 @@ function startStory() {
     setTimeout(() => {
         playStorySegments();
     }, 500);
+}
+
+// Skip to about section
+function skipToAbout() {
+    // Stop any ongoing animations
+    currentSegment = storySegments.length;
+    currentDialogue = dialogues.length;
+    
+    // Hide animation elements
+    scene.classList.remove('active');
+    skipContainer.classList.remove('active');
+    danielSpeech.style.display = 'none';
+    michaelThought.style.display = 'none';
+    portal.classList.remove('active');
+    guru.classList.remove('active');
+    
+    // Stop music if playing
+    if (isPlayerReady && player) {
+        player.pauseVideo();
+    }
+    
+    // Show about section
+    aboutSection.classList.add('active');
+    aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Auto-start after page loads
@@ -89,6 +116,9 @@ window.addEventListener('load', () => {
 
 // Also allow manual start if needed
 startBtn.addEventListener('click', startStory);
+
+// Skip button handler
+skipBtn.addEventListener('click', skipToAbout);
 
 // Show narrative in sky
 function showNarrative(text) {
@@ -158,9 +188,31 @@ function startDialogue() {
     daniel.classList.remove('walking');
     showNarrative(storySegments[7]);
     
+    // Hide/adjust labels when characters are close on mobile
+    if (window.innerWidth <= 768) {
+        adjustLabelsForMobile();
+    }
+    
     setTimeout(() => {
         playDialogue();
     }, 2000);
+}
+
+// Adjust labels to prevent overlap on mobile
+function adjustLabelsForMobile() {
+    const danielLabel = daniel.querySelector('.label');
+    const michaelLabel = michael.querySelector('.label');
+    
+    // Hide both labels during dialogue when characters are close
+    if (danielLabel) {
+        danielLabel.style.opacity = '0';
+        danielLabel.style.transition = 'opacity 0.3s ease';
+    }
+    
+    if (michaelLabel) {
+        michaelLabel.style.opacity = '0';
+        michaelLabel.style.transition = 'opacity 0.3s ease';
+    }
 }
 
 // Play dialogue sequence
@@ -275,6 +327,11 @@ function showSpeechBubble(bubble, text) {
     bubble.style.display = 'block';
     bubble.querySelector('.bubble-content').textContent = text;
     
+    // Position bubble above character on mobile
+    if (window.innerWidth <= 768) {
+        updateMobileBubblePosition(bubble);
+    }
+    
     // Animate in
     bubble.style.opacity = '0';
     setTimeout(() => {
@@ -291,6 +348,33 @@ function showSpeechBubble(bubble, text) {
     }, 2000);
 }
 
+// Update bubble position on mobile to be above the character
+function updateMobileBubblePosition(bubble) {
+    if (bubble.id === 'danielSpeech') {
+        const danielElement = document.getElementById('daniel');
+        const danielRect = danielElement.getBoundingClientRect();
+        const sceneRect = document.querySelector('.scene').getBoundingClientRect();
+        
+        // Position above Daniel
+        bubble.style.left = (danielRect.left - sceneRect.left - 20) + 'px';
+        bubble.style.right = 'auto';
+        bubble.style.bottom = '180px';
+        bubble.style.top = 'auto';
+        bubble.style.maxWidth = '120px';
+    } else if (bubble.id === 'michaelThought') {
+        const michaelElement = document.getElementById('michael');
+        const michaelRect = michaelElement.getBoundingClientRect();
+        const sceneRect = document.querySelector('.scene').getBoundingClientRect();
+        
+        // Position above Michael
+        bubble.style.right = (sceneRect.right - michaelRect.right - 20) + 'px';
+        bubble.style.left = 'auto';
+        bubble.style.bottom = '180px';
+        bubble.style.top = 'auto';
+        bubble.style.maxWidth = '120px';
+    }
+}
+
 // Finish the story
 function finishStory() {
     showNarrative(storySegments[8]);
@@ -298,6 +382,23 @@ function finishStory() {
     // Hide speech bubbles
     danielSpeech.style.display = 'none';
     michaelThought.style.display = 'none';
+    
+    // Hide skip button
+    skipContainer.classList.remove('active');
+    
+    // Restore labels on mobile
+    if (window.innerWidth <= 768) {
+        const danielLabel = daniel.querySelector('.label');
+        const michaelLabel = michael.querySelector('.label');
+        
+        if (danielLabel) {
+            danielLabel.style.opacity = '1';
+        }
+        
+        if (michaelLabel) {
+            michaelLabel.style.opacity = '1';
+        }
+    }
     
     // Show about section after a delay
     setTimeout(() => {
